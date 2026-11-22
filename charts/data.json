@@ -1,0 +1,486 @@
+{
+ "halves": [
+  "2025H1",
+  "2025H2",
+  "2026H1",
+  "2026H2"
+ ],
+ "accuracy": {
+  "AA-Omniscience": [
+   {
+    "half": "2025H1",
+    "value": 20.8,
+    "n": 22,
+    "best": 39.1
+   },
+   {
+    "half": "2025H2",
+    "value": 27.6,
+    "n": 23,
+    "best": 52.0
+   },
+   {
+    "half": "2026H1",
+    "value": 38.6,
+    "n": 27,
+    "best": 65.4
+   },
+   {
+    "half": "2026H2",
+    "value": 49.9,
+    "n": 29,
+    "best": 72.4
+   }
+  ],
+  "SimpleQA Verified": [
+   {
+    "half": "2025H1",
+    "value": 17.3,
+    "n": 6,
+    "best": 49.4
+   },
+   {
+    "half": "2025H2",
+    "value": 34.2,
+    "n": 9,
+    "best": 66.8
+   },
+   {
+    "half": "2026H1",
+    "value": 45.7,
+    "n": 16,
+    "best": 73.5
+   },
+   {
+    "half": "2026H2",
+    "value": 60.3,
+    "n": 25,
+    "best": 94.0
+   }
+  ]
+ },
+ "nonsense": {
+  "Accepted the nonsense": [
+   {
+    "half": "2025H1",
+    "value": 59.5,
+    "n": 12
+   },
+   {
+    "half": "2025H2",
+    "value": 36.0,
+    "n": 17
+   },
+   {
+    "half": "2026H1",
+    "value": 25.3,
+    "n": 22
+   },
+   {
+    "half": "2026H2",
+    "value": 13.5,
+    "n": 27
+   }
+  ],
+  "Clear pushback": [
+   {
+    "half": "2025H1",
+    "value": 20.0,
+    "n": 12
+   },
+   {
+    "half": "2025H2",
+    "value": 33.0,
+    "n": 17
+   },
+   {
+    "half": "2026H1",
+    "value": 42.5,
+    "n": 22
+   },
+   {
+    "half": "2026H2",
+    "value": 58.5,
+    "n": 27
+   }
+  ]
+ },
+ "split": [
+  {
+   "group": "Models from all other companies, taken together",
+   "wrong_early": 58.6,
+   "wrong_late": 33.1,
+   "diff": 25.5,
+   "fewer_attempts": 21.3,
+   "more_correct": 4.2,
+   "more_partial": -0.0,
+   "n_early": 81,
+   "n_late": 53
+  },
+  {
+   "group": "Models from the five big labs",
+   "wrong_early": 43.5,
+   "wrong_late": 27.0,
+   "diff": 16.5,
+   "fewer_attempts": 4.3,
+   "more_correct": 11.6,
+   "more_partial": 0.6,
+   "n_early": 27,
+   "n_late": 27
+  }
+ ],
+ "flagships": [
+  {
+   "model": "Claude Fable 5.2",
+   "aa_setting": "max",
+   "aa_right": 79.1,
+   "aa_wrong": 12.4,
+   "simpleqa_right": 94.0,
+   "pushback": 66.0,
+   "accepted": 8.0
+  },
+  {
+   "model": "Gemini 4 Carbon",
+   "aa_setting": "high",
+   "aa_right": 58.3,
+   "aa_wrong": 4.8,
+   "simpleqa_right": 77.7,
+   "pushback": 72.0,
+   "accepted": 17.0
+  },
+  {
+   "model": "GPT-6.1 Sol",
+   "aa_setting": "max",
+   "aa_right": 61.8,
+   "aa_wrong": 19.8,
+   "simpleqa_right": 73.9,
+   "pushback": 59.0,
+   "accepted": 1.0
+  },
+  {
+   "model": "Grok 4.7",
+   "aa_setting": "xhigh",
+   "aa_right": 42.7,
+   "aa_wrong": 11.5,
+   "simpleqa_right": 56.0,
+   "pushback": 72.0,
+   "accepted": 9.0
+  },
+  {
+   "model": "Muse Wonder",
+   "aa_setting": "max",
+   "aa_right": 38.0,
+   "aa_wrong": 12.9,
+   "simpleqa_right": null,
+   "pushback": 52.0,
+   "accepted": 18.0
+  }
+ ],
+ "vectara_siblings": {
+  "Claude Opus 5.5": 9.9,
+  "Gemini 4 Argon": 12.1,
+  "GPT-6 Sol": 6.5
+ },
+ "vectara": {
+  "dots": [
+   {
+    "model": "gpt-4o",
+    "lab": "OpenAI",
+    "date": "2024-08-06",
+    "value": 9.6
+   },
+   {
+    "model": "llama-3.3-70b",
+    "lab": "Meta",
+    "date": "2024-12-06",
+    "value": 4.1
+   },
+   {
+    "model": "grok-3",
+    "lab": "xAI",
+    "date": "2025-02-19",
+    "value": 5.8
+   },
+   {
+    "model": "gemma-3-12b",
+    "lab": "Google",
+    "date": "2025-03-12",
+    "value": 4.4
+   },
+   {
+    "model": "gemma-3-4b",
+    "lab": "Google",
+    "date": "2025-03-12",
+    "value": 6.4
+   },
+   {
+    "model": "gemma-3-27b",
+    "lab": "Google",
+    "date": "2025-03-12",
+    "value": 7.4
+   },
+   {
+    "model": "llama-4-scout",
+    "lab": "Meta",
+    "date": "2025-04-05",
+    "value": 7.7
+   },
+   {
+    "model": "llama-4-maverick",
+    "lab": "Meta",
+    "date": "2025-04-05",
+    "value": 8.2
+   },
+   {
+    "model": "gpt-4.1",
+    "lab": "OpenAI",
+    "date": "2025-04-14",
+    "value": 5.6
+   },
+   {
+    "model": "o4-mini",
+    "lab": "OpenAI",
+    "date": "2025-04-16",
+    "value": 18.6
+   },
+   {
+    "model": "gemini-2.5-flash",
+    "lab": "Google",
+    "date": "2025-05-20",
+    "value": 7.8
+   },
+   {
+    "model": "claude-sonnet-4",
+    "lab": "Anthropic",
+    "date": "2025-05-22",
+    "value": 10.3
+   },
+   {
+    "model": "claude-opus-4",
+    "lab": "Anthropic",
+    "date": "2025-05-22",
+    "value": 12.0
+   },
+   {
+    "model": "gemini-2.5-pro",
+    "lab": "Google",
+    "date": "2025-06-05",
+    "value": 7.0
+   },
+   {
+    "model": "gemini-2.5-flash-lite",
+    "lab": "Google",
+    "date": "2025-06-17",
+    "value": 3.3
+   },
+   {
+    "model": "claude-opus-4.1",
+    "lab": "Anthropic",
+    "date": "2025-08-05",
+    "value": 11.8
+   },
+   {
+    "model": "gpt-oss-120b",
+    "lab": "OpenAI",
+    "date": "2025-08-05",
+    "value": 14.2
+   },
+   {
+    "model": "gpt-5-nano",
+    "lab": "OpenAI",
+    "date": "2025-08-07",
+    "value": 10.5
+   },
+   {
+    "model": "gpt-5-mini",
+    "lab": "OpenAI",
+    "date": "2025-08-07",
+    "value": 12.9
+   },
+   {
+    "model": "gpt-5",
+    "lab": "OpenAI",
+    "date": "2025-08-07",
+    "value": 14.9
+   },
+   {
+    "model": "grok-4-fast",
+    "lab": "xAI",
+    "date": "2025-09-19",
+    "value": 20.0
+   },
+   {
+    "model": "claude-sonnet-4.5",
+    "lab": "Anthropic",
+    "date": "2025-09-29",
+    "value": 12.0
+   },
+   {
+    "model": "claude-haiku-4.5",
+    "lab": "Anthropic",
+    "date": "2025-10-15",
+    "value": 9.8
+   },
+   {
+    "model": "gpt-5.1",
+    "lab": "OpenAI",
+    "date": "2025-11-13",
+    "value": 11.5
+   },
+   {
+    "model": "gemini-3-pro",
+    "lab": "Google",
+    "date": "2025-11-18",
+    "value": 13.6
+   },
+   {
+    "model": "grok-4.1-fast",
+    "lab": "xAI",
+    "date": "2025-11-19",
+    "value": 18.5
+   },
+   {
+    "model": "claude-opus-4.5",
+    "lab": "Anthropic",
+    "date": "2025-11-24",
+    "value": 10.9
+   },
+   {
+    "model": "gpt-5.2",
+    "lab": "OpenAI",
+    "date": "2025-12-11",
+    "value": 9.6
+   },
+   {
+    "model": "gemini-3-flash",
+    "lab": "Google",
+    "date": "2025-12-17",
+    "value": 13.5
+   },
+   {
+    "model": "claude-opus-4.6",
+    "lab": "Anthropic",
+    "date": "2026-02-05",
+    "value": 12.2
+   },
+   {
+    "model": "claude-sonnet-4.6",
+    "lab": "Anthropic",
+    "date": "2026-02-17",
+    "value": 10.6
+   },
+   {
+    "model": "gemini-3.1-pro",
+    "lab": "Google",
+    "date": "2026-02-19",
+    "value": 10.4
+   },
+   {
+    "model": "gemini-3.1-flash-lite",
+    "lab": "Google",
+    "date": "2026-03-03",
+    "value": 8.2
+   },
+   {
+    "model": "gpt-5.4",
+    "lab": "OpenAI",
+    "date": "2026-03-05",
+    "value": 7.0
+   },
+   {
+    "model": "gpt-5.4-pro",
+    "lab": "OpenAI",
+    "date": "2026-03-05",
+    "value": 8.3
+   },
+   {
+    "model": "gpt-5.4-nano",
+    "lab": "OpenAI",
+    "date": "2026-03-17",
+    "value": 3.1
+   },
+   {
+    "model": "gpt-5.4-mini",
+    "lab": "OpenAI",
+    "date": "2026-03-17",
+    "value": 5.5
+   },
+   {
+    "model": "gemma-4-26b-a4b",
+    "lab": "Google",
+    "date": "2026-04-02",
+    "value": 5.2
+   },
+   {
+    "model": "gemma-4-31b",
+    "lab": "Google",
+    "date": "2026-04-02",
+    "value": 7.4
+   },
+   {
+    "model": "claude-opus-4.7",
+    "lab": "Anthropic",
+    "date": "2026-04-16",
+    "value": 12.0
+   },
+   {
+    "model": "gpt-5.5",
+    "lab": "OpenAI",
+    "date": "2026-04-23",
+    "value": 9.3
+   },
+   {
+    "model": "gpt-5.6-sol",
+    "lab": "OpenAI",
+    "date": "2026-07-09",
+    "value": 12.4
+   },
+   {
+    "model": "gpt-6-astra",
+    "lab": "OpenAI",
+    "date": "2026-09-03",
+    "value": 8.7
+   },
+   {
+    "model": "gpt-6-sol",
+    "lab": "OpenAI",
+    "date": "2026-09-22",
+    "value": 6.5
+   },
+   {
+    "model": "claude-opus-5.5",
+    "lab": "Anthropic",
+    "date": "2026-09-22",
+    "value": 9.9
+   },
+   {
+    "model": "gemini-4-argon",
+    "lab": "Google",
+    "date": "2026-09-30",
+    "value": 12.1
+   }
+  ],
+  "medians": [
+   {
+    "half": "2025H1",
+    "value": 7.4,
+    "n": 13
+   },
+   {
+    "half": "2025H2",
+    "value": 12.5,
+    "n": 14
+   },
+   {
+    "half": "2026H1",
+    "value": 8.3,
+    "n": 12
+   },
+   {
+    "half": "2026H2",
+    "value": 9.9,
+    "n": 5
+   }
+  ]
+ }
+}

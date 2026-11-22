@@ -1,0 +1,9 @@
+# Working material, not published
+draft-*.md
+context/
+
+# Not redistributed, see README
+data/aa_omniscience_*.csv
+
+__pycache__/
+.DS_Store

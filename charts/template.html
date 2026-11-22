@@ -1,0 +1,333 @@
+<title>Hallucination Leaderboard Charts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+/* Layout: one column of five figures, each a self-contained panel that can be exported as an image. */
+:root {
+  --bg: #f4f4f1; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --ink-3: #7b7a74;
+  --grid: #e6e5df; --rule: #d7d6cf; --s1: #1ea366; --s2: #54534e; --neutral: #c9c8c0;
+  --serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111110; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #96958c;
+    --grid: #2c2c2a; --rule: #3a3a37; --s1: #2aad70; --s2: #787771; --neutral: #45443f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111110; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --ink-3: #96958c;
+  --grid: #2c2c2a; --rule: #3a3a37; --s1: #2aad70; --s2: #787771; --neutral: #45443f; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.45; }
+.page { max-width: 980px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 28px; }
+.intro h1 { font-family: var(--serif); font-weight: 600; font-size: 26px; line-height: 1.2; margin: 0 0 6px; text-wrap: balance; }
+.intro p { margin: 0; color: var(--ink-2); max-width: 65ch; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 26px 28px 20px; position: relative; min-width: 0; }
+.kicker { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 8px; }
+figure h2 { font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.2; margin: 0 0 6px; text-wrap: balance; }
+.sub { margin: 0 0 14px; color: var(--ink-2); max-width: 70ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 0 0 6px; font-size: 14px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.sw.line { height: 3px; width: 18px; border-radius: 2px; }
+.plot { position: relative; }
+.plot svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { font-family: var(--sans); fill: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+svg text.val { fill: var(--ink); font-weight: 600; font-size: 14px; }
+svg text.note { fill: var(--ink); font-size: 13px; font-weight: 500; }
+svg .grid { stroke: var(--grid); stroke-width: 1; }
+svg .axis { stroke: var(--rule); stroke-width: 1; }
+svg .hit { fill: transparent; cursor: default; }
+svg .hit:focus { outline: none; }
+svg .hit:focus-visible + .focus, svg .dot:focus-visible { stroke: var(--ink); stroke-width: 2; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--surface); font-size: 13px; line-height: 1.35;
+  padding: 7px 10px; border-radius: 5px; max-width: 240px; z-index: 5; transform: translate(-50%, calc(-100% - 12px)); white-space: nowrap; }
+.tip b { font-weight: 600; }
+.foot { margin: 12px 0 0; font-size: 12.5px; color: var(--ink-3); max-width: 80ch; }
+details { margin-top: 10px; font-size: 13px; color: var(--ink-2); }
+summary { cursor: pointer; width: fit-content; }
+summary:focus-visible { outline: 2px solid var(--s1); outline-offset: 3px; }
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; margin-top: 8px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 4px 16px 4px 0; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { font-weight: 600; color: var(--ink); }
+.score { width: 100%; margin-top: 4px; font-size: 15px; }
+.score th, .score td { padding: 10px 18px 10px 0; white-space: normal; vertical-align: top; color: var(--ink); }
+.score thead th { font-size: 13px; color: var(--ink-2); font-weight: 500; vertical-align: bottom; border-bottom: 1px solid var(--rule); }
+.score thead th b { display: block; color: var(--ink); font-weight: 600; font-size: 15px; }
+.score tbody th { font-weight: 600; white-space: nowrap; }
+.score td b { font-weight: 600; font-size: 1.2em; }
+.score td span { color: var(--ink-2); display: block; font-size: .9em; }
+.score td.none { color: var(--ink-3); }
+.rowlab { font-weight: 600; color: var(--ink); margin: 14px 0 6px; }
+.rowcap { margin: 6px 0 0; color: var(--ink-2); font-size: 14px; display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.rowcap span { display: inline-flex; align-items: center; gap: 7px; }
+.rowcap b { color: var(--ink); font-weight: 600; }
+/* Export mode: one figure, fixed width, no page chrome. Used for the PNG files. */
+body.export { background: var(--surface); }
+body.export .page { max-width: none; padding: 0; gap: 0; }
+body.export .intro, body.export details { display: none; }
+body.export figure { border: 0; border-radius: 0; padding: 40px 48px 32px; width: 1200px; box-sizing: border-box; }
+body.export figure h2 { font-size: 34px; }
+body.export .sub { font-size: 19px; }
+body.export .kicker { font-size: 14px; }
+body.export .legend, body.export .rowcap { font-size: 17px; }
+body.export .rowlab { font-size: 18px; }
+body.export .score { font-size: 19px; }
+body.export .score thead th { font-size: 15.5px; }
+body.export .score thead th b { font-size: 18px; }
+body.export .score th, body.export .score td { padding: 14px 22px 14px 0; }
+body.export .foot { font-size: 14.5px; }
+body.export svg text { font-size: 16px; }
+body.export svg text.val { font-size: 18px; }
+body.export svg text.note { font-size: 16px; }
+@media (max-width: 560px) {
+  figure { padding: 18px 16px 14px; }
+  figure h2 { font-size: 20px; }
+  svg text { font-size: 12px; }
+}
+</style>
+
+<div class="page">
+  <div class="intro">
+    <h1>Do today's AI models hallucinate less?</h1>
+    <p>Five charts for the Wondering About AI article. Each compares models inside one leaderboard, grouped by when they were released. Hover or tap a point for its value.</p>
+  </div>
+
+  <figure id="fig1">
+    <p class="kicker">Finding 1</p>
+    <h2>Newer models get more facts right</h2>
+    <p class="sub">Share of factual questions answered correctly by models from five big labs, by release date. Solid lines show the typical model and dashed lines show the best one.</p>
+    <div class="legend" id="leg1"></div>
+    <div class="plot" id="plot1"></div>
+    <p class="foot" id="foot1"></p>
+    <details><summary>Show the numbers</summary><div class="tw" id="tab1"></div></details>
+  </figure>
+
+  <figure id="fig2">
+    <p class="kicker">Finding 2</p>
+    <h2>Newer models push back on nonsense</h2>
+    <p class="sub">How the typical big-lab model handled BullshitBench's 100 questions built on a made-up premise, by release date.</p>
+    <div class="legend" id="leg2"></div>
+    <div class="plot" id="plot2"></div>
+    <p class="foot" id="foot2"></p>
+    <details><summary>Show the numbers</summary><div class="tw" id="tab2"></div></details>
+  </figure>
+
+  <figure id="fig3">
+    <p class="kicker">Finding 3</p>
+    <h2>Fewer wrong answers, in two different ways</h2>
+    <p class="sub">Models released in late 2026 gave fewer wrong answers on AA-Omniscience than those from early 2026. The bars split that difference, in percentage points of all questions.</p>
+    <div class="legend" id="leg3"></div>
+    <div id="plot3"></div>
+    <p class="foot" id="foot3"></p>
+    <details><summary>Show the numbers</summary><div class="tw" id="tab3"></div></details>
+  </figure>
+
+  <figure id="fig4">
+    <p class="kicker">Finding 4</p>
+    <h2>On sticking to a document, no consistent trend</h2>
+    <p class="sub">Vectara hallucination rate when summarizing a supplied document. Each dot is one big-lab model, placed by release date. Lower is better.</p>
+    <div class="plot" id="plot4"></div>
+    <p class="foot" id="foot4"></p>
+    <details><summary>Show the numbers</summary><div class="tw" id="tab4"></div></details>
+  </figure>
+
+  <figure id="fig5">
+    <p class="kicker">One model per lab</p>
+    <h2>How five recent models scored</h2>
+    <p class="sub">One recent model from each of the five big labs, at the highest reasoning setting each leaderboard lists, as of November 2026.</p>
+    <div class="tw" id="plot5"></div>
+    <p class="foot" id="foot5"></p>
+  </figure>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const NS = 'http://www.w3.org/2000/svg';
+const EXPORT = (() => { const m = /[?&]only=(\d)/.exec(location.search); return m ? +m[1] : 0; })();
+if (EXPORT) {
+  document.body.classList.add('export');
+  document.querySelectorAll('figure').forEach(f => { if (f.id !== 'fig' + EXPORT) f.hidden = true; });
+}
+const HALF_LABEL = { '2025H1': 'Jan to Jun 2025', '2025H2': 'Jul to Dec 2025', '2026H1': 'Jan to Jun 2026', '2026H2': 'Jul to Dec 2026' };
+const HALF_SHORT = { '2025H1': 'H1 2025', '2025H2': 'H2 2025', '2026H1': 'H1 2026', '2026H2': 'H2 2026' };
+
+function el(name, attrs, parent, text) {
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text != null) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function tipFor(plot) {
+  let t = plot.querySelector('.tip');
+  if (!t) { t = document.createElement('div'); t.className = 'tip'; t.hidden = true; plot.appendChild(t); }
+  return t;
+}
+function bindTip(plot, node, html, x, y) {
+  const t = tipFor(plot);
+  const show = () => {
+    const svg = plot.querySelector('svg'), k = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;
+    t.innerHTML = html; t.hidden = false;
+    const left = Math.min(Math.max(x * k, 90), plot.clientWidth - 90);
+    t.style.left = left + 'px'; t.style.top = (y * k) + 'px';
+  };
+  const hide = () => { t.hidden = true; };
+  node.addEventListener('pointerenter', show); node.addEventListener('pointerleave', hide);
+  node.addEventListener('focus', show); node.addEventListener('blur', hide);
+}
+function table(id, head, rows) {
+  document.getElementById(id).innerHTML = '<table><thead><tr>' + head.map(h => `<th>${h}</th>`).join('') + '</tr></thead><tbody>' +
+    rows.map(r => '<tr>' + r.map(c => `<td>${c}</td>`).join('') + '</tr>').join('') + '</tbody></table>';
+}
+function legend(id, items) {
+  document.getElementById(id).innerHTML = items.map(i => `<span><i class="sw ${i.line ? 'line' : ''}" style="background:var(${i.color})"></i>${i.name}</span>`).join('');
+}
+function sizeOf(plot) {
+  const W = EXPORT ? 1104 : Math.max(280, plot.clientWidth);
+  return { W, small: W < 520, big: !!EXPORT };
+}
+
+function lineChart(plotId, series, yMax, step) {
+  const plot = document.getElementById(plotId); plot.querySelector('svg')?.remove();
+  const { W, small, big } = sizeOf(plot);
+  const H = Math.round(Math.max(250, Math.min(W * 0.47, 520)));
+  const m = { l: big ? 58 : 44, r: big ? 64 : (small ? 40 : 54), t: big ? 30 : 24, b: big ? 52 : 40 };
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, plot);
+  const halves = DATA.halves,
+        px = i => m.l + (W - m.l - m.r) * (0.06 + 0.88 * i / (halves.length - 1)),
+        y = v => m.t + (H - m.t - m.b) * (1 - v / yMax);
+  for (let v = 0; v <= yMax; v += step) {
+    el('line', { class: v === 0 ? 'axis' : 'grid', x1: m.l, x2: W - m.r, y1: y(v), y2: y(v) }, svg);
+    el('text', { x: m.l - 10, y: y(v) + 4.5, 'text-anchor': 'end' }, svg, v + '%');
+  }
+  halves.forEach((h, i) => el('text', { x: px(i), y: H - m.b + (big ? 30 : 24), 'text-anchor': 'middle' }, svg, small ? HALF_SHORT[h] : HALF_LABEL[h]));
+  series.forEach(s => {
+    const d = s.points.map((p, i) => (i ? 'L' : 'M') + px(i).toFixed(1) + ' ' + y(p.value).toFixed(1)).join(' ');
+    el('path', { d, fill: 'none', style: `stroke:var(${s.color})`, 'stroke-width': big ? 3 : 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+  });
+  if (series[0].points[0].best != null) series.forEach(s => {
+    const d = s.points.map((p, i) => (i ? 'L' : 'M') + px(i).toFixed(1) + ' ' + y(p.best).toFixed(1)).join(' ');
+    el('path', { d, fill: 'none', style: `stroke:var(${s.color})`, 'stroke-width': big ? 2.5 : 1.5, 'stroke-dasharray': big ? '3 8' : '2 6', 'stroke-linecap': 'round' }, svg);
+    s.points.forEach((p, i) => {
+      el('circle', { cx: px(i), cy: y(p.best), r: big ? 6 : 4, style: `fill:var(--surface);stroke:var(${s.color})`, 'stroke-width': big ? 2.5 : 2 }, svg);
+      if (i === 0 || i === halves.length - 1)
+        el('text', { class: 'val', x: px(i), y: y(p.best) - (big ? 15 : 11), 'text-anchor': 'middle' }, svg, Math.round(p.best) + '%');
+      const hit = el('circle', { class: 'hit', cx: px(i), cy: y(p.best), r: 18, tabindex: 0, 'aria-label': `${s.name}, best model, ${HALF_LABEL[p.half]}: ${p.best}%` }, svg);
+      bindTip(plot, hit, `<b>${s.name}</b>, best model<br>${HALF_LABEL[p.half]}: <b>${p.best}%</b>`, px(i), y(p.best));
+    });
+  });
+  series.forEach((s, si) => s.points.forEach((p, i) => {
+    el('circle', { cx: px(i), cy: y(p.value), r: big ? 7 : 5, style: `fill:var(${s.color});stroke:var(--surface)`, 'stroke-width': 2 }, svg);
+    if (i === 0 || i === halves.length - 1) {
+      const other = series[1 - si].points[i].value, above = p.value >= other;
+      el('text', { class: 'val', x: px(i), y: y(p.value) + (above ? -(big ? 16 : 12) : (big ? 30 : 24)), 'text-anchor': 'middle' }, svg, (Number.isInteger(p.value * 2) && !Number.isInteger(p.value) ? p.value.toFixed(1) : Math.round(p.value)) + '%');
+    }
+    const hit = el('circle', { class: 'hit', cx: px(i), cy: y(p.value), r: 18, tabindex: 0, 'aria-label': `${s.name}, ${HALF_LABEL[p.half]}: ${p.value}%` }, svg);
+    bindTip(plot, hit, `<b>${s.name}</b><br>${HALF_LABEL[p.half]}: <b>${p.value}%</b><br>${p.n} models`, px(i), y(p.value));
+  }));
+}
+
+function splitChart() {
+  const host = document.getElementById('plot3'); host.innerHTML = '';
+  const parts = [['fewer_attempts', '--s2', 'fewer questions attempted'], ['more_correct', '--s1', 'more correct answers'], ['more_partial', '--neutral', 'more partly correct answers']];
+  const max = 30;
+  DATA.split.forEach(g => {
+    const lab = document.createElement('p'); lab.className = 'rowlab';
+    lab.textContent = `${g.group}: wrong answers ${g.wrong_early.toFixed(1)}% to ${g.wrong_late.toFixed(1)}%, a difference of ${g.diff.toFixed(1)} points`;
+    host.appendChild(lab);
+    const plot = document.createElement('div'); plot.className = 'plot'; host.appendChild(plot);
+    const { W, big } = sizeOf(plot), bh = big ? 34 : 24, H = bh + 34, l = 2, r = 30;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, plot);
+    const sx = v => l + (W - l - r) * v / max;
+    for (let v = 0; v <= max; v += 5) {
+      el('line', { class: v ? 'grid' : 'axis', x1: sx(v), x2: sx(v), y1: 0, y2: bh + 8 }, svg);
+      el('text', { x: sx(v), y: bh + 26, 'text-anchor': v ? 'middle' : 'start' }, svg, v + (v === max ? ' pts' : ''));
+    }
+    let acc = 0;
+    const shown = parts.filter(([key]) => g[key] >= 0.05);
+    shown.forEach(([key, color, name], i) => {
+      const v = g[key], x0 = sx(acc) + (i ? 1 : 0), x1 = sx(acc + v) - (i < shown.length - 1 ? 1 : 0), w = Math.max(1.5, x1 - x0);
+      const last = i === shown.length - 1;
+      const d = last ? `M${x0} 4 H${x0 + w - 4} a4 4 0 0 1 4 4 V${bh - 4} a4 4 0 0 1 -4 4 H${x0} Z` : `M${x0} 4 H${x0 + w} V${bh + 4} H${x0} Z`;
+      const seg = el('path', { d, style: `fill:var(${color})`, tabindex: 0, class: 'dot', 'aria-label': `${g.group}: ${v} points from ${name}` }, svg);
+      bindTip(plot, seg, `<b>${v} points</b><br>${name}`, (x0 + x0 + w) / 2, 4);
+      acc += v;
+    });
+    const cap = document.createElement('p'); cap.className = 'rowcap';
+    cap.innerHTML = parts.slice(0, 2).map(([key, color, name]) => `<span><i class="sw" style="background:var(${color})"></i><b>${g[key]}</b> ${name}</span>`).join('');
+    host.appendChild(cap);
+  });
+}
+
+function pretty(m) {
+  const map = { gpt: 'GPT', claude: 'Claude', gemini: 'Gemini', grok: 'Grok', llama: 'Llama', gemma: 'Gemma' };
+  return m.split('-').map(t => map[t] || (/^[a-z]/.test(t) && !/^o\d/.test(t) ? t[0].toUpperCase() + t.slice(1) : t)).join(' ').replace(/^(GPT|Claude|Gemini|Grok|Llama|Gemma) /, '$1 ').replace('GPT ', 'GPT-');
+}
+function dotChart() {
+  const plot = document.getElementById('plot4'); plot.querySelector('svg')?.remove();
+  const { W, small, big } = sizeOf(plot);
+  const H = Math.round(Math.max(270, Math.min(W * 0.5, 560)));
+  const m = { l: big ? 58 : 44, r: big ? 24 : 14, t: big ? 26 : 20, b: big ? 52 : 40 };
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, plot);
+  const t0 = Date.UTC(2025, 0, 1), t1 = Date.UTC(2027, 0, 1), yMax = 25;
+  const sx = t => m.l + (W - m.l - m.r) * (t - t0) / (t1 - t0), sy = v => m.t + (H - m.t - m.b) * (1 - v / yMax);
+  for (let v = 0; v <= yMax; v += 5) {
+    el('line', { class: v ? 'grid' : 'axis', x1: m.l, x2: W - m.r, y1: sy(v), y2: sy(v) }, svg);
+    el('text', { x: m.l - 10, y: sy(v) + 4.5, 'text-anchor': 'end' }, svg, v + '%');
+  }
+  const bounds = [[2025, 0], [2025, 6], [2026, 0], [2026, 6], [2027, 0]].map(([y, mo]) => Date.UTC(y, mo, 1));
+  bounds.slice(1, 4).forEach(b => el('line', { class: 'grid', x1: sx(b), x2: sx(b), y1: m.t, y2: H - m.b }, svg));
+  DATA.halves.forEach((h, i) => el('text', { x: (sx(bounds[i]) + sx(bounds[i + 1])) / 2, y: H - m.b + (big ? 30 : 24), 'text-anchor': 'middle' }, svg, small ? HALF_SHORT[h] : HALF_LABEL[h]));
+  const dots = DATA.vectara.dots.filter(d => d.date >= '2025-01-01');
+  dots.forEach(d => {
+    const cx = sx(Date.parse(d.date)), cy = sy(d.value);
+    const c = el('circle', { class: 'dot', cx, cy, r: big ? 7 : 5, style: 'fill:var(--s1);stroke:var(--surface)', 'stroke-width': 2, 'fill-opacity': .82, tabindex: 0, 'aria-label': `${pretty(d.model)}, ${d.lab}, released ${d.date}: ${d.value}%` }, svg);
+    bindTip(plot, c, `<b>${pretty(d.model)}</b> (${d.lab})<br>Released ${d.date}<br>Hallucination rate <b>${d.value}%</b>`, cx, cy);
+  });
+  DATA.vectara.medians.forEach((mm, i) => {
+    const xa = sx(bounds[i]) + 10, xb = sx(bounds[i + 1]) - 10, yy = sy(mm.value);
+    el('line', { x1: xa, x2: xb, y1: yy, y2: yy, style: 'stroke:var(--ink)', 'stroke-width': big ? 3 : 2, 'stroke-linecap': 'round' }, svg);
+    el('text', { class: 'val', x: (xa + xb) / 2, y: sy(yMax) + (big ? 24 : 18), 'text-anchor': 'middle' }, svg, (small ? '' : 'Typical: ') + mm.value.toFixed(1) + '%');
+  });
+  const call = dots.find(d => d.model === 'gpt-4.1');
+  if (call && !small) {
+    const cx = sx(Date.parse(call.date)), cy = sy(call.value);
+    el('line', { x1: cx, x2: cx - 6, y1: cy + 8, y2: cy + 24, style: 'stroke:var(--ink-3)', 'stroke-width': 1 }, svg);
+    el('text', { class: 'note', x: cx - 8, y: cy + 40, 'text-anchor': 'middle', style: 'paint-order:stroke;stroke:var(--surface);stroke-width:4px' }, svg, 'GPT-4.1, April 2025');
+  }
+  document.getElementById('foot4').textContent = `${dots.length} models from OpenAI, Anthropic, Google, xAI and Meta on Vectara's leaderboard as of October 22, 2026. Black lines mark the typical (median) model in each half-year. Only ${DATA.vectara.medians[3].n} models from the second half of 2026 are on the board. Two models released in 2024 are in the analysis and not shown here. Source: Vectara Hallucination Leaderboard.`;
+  table('tab4', ['Model', 'Lab', 'Released', 'Hallucination rate'], dots.map(d => [pretty(d.model), d.lab, d.date, d.value + '%']));
+}
+
+function draw() {
+  const acc = Object.entries(DATA.accuracy).map(([name, points], i) => ({ name, points, color: i ? '--s2' : '--s1' }));
+  legend('leg1', acc.map(s => ({ name: s.name, color: s.color, line: true })));
+  lineChart('plot1', acc, 100, 20);
+  const non = Object.entries(DATA.nonsense).map(([name, points], i) => ({ name, points: points.map(({ best, ...p }) => p), color: i ? '--s1' : '--s2' }));
+  legend('leg2', non.map(s => ({ name: s.name, color: s.color, line: true })));
+  lineChart('plot2', non, 70, 10);
+  legend('leg3', [{ name: 'Fewer questions attempted', color: '--s2' }, { name: 'More correct answers', color: '--s1' }, { name: 'More partly correct answers', color: '--neutral' }]);
+  splitChart();
+  dotChart();
+}
+const n = k => Object.values(DATA[k])[0].map(p => p.n).join(', ');
+document.getElementById('foot1').textContent = `Typical means the median model from OpenAI, Anthropic, Google, xAI and Meta. AA-Omniscience groups hold ${n('accuracy')} models; SimpleQA Verified groups hold ${Object.values(DATA.accuracy)[1].map(p => p.n).join(', ')}. Each model's score is averaged across its reasoning settings. SimpleQA Verified data is from November 2026. The AA-Omniscience table is an October 2026 snapshot with some August and November records added. Sources: Artificial Analysis, Epoch AI.`;
+document.getElementById('foot2').textContent = `Typical means the median model from OpenAI, Anthropic, Google, xAI and Meta. Groups hold ${n('nonsense')} models. Partial pushback is not shown. Source: BullshitBench v2, November 11, 2026.`;
+document.getElementById('foot3').textContent = `Averages across models. All other companies, taken together: ${DATA.split[0].n_early} released in early 2026 and ${DATA.split[0].n_late} in late 2026. Five big labs (OpenAI, Anthropic, Google, xAI, Meta): ${DATA.split[1].n_early} and ${DATA.split[1].n_late}. Each period is a different group of models, so the split describes the groups and does not show a cause. It does not describe each company on its own. Source: Artificial Analysis, AA-Omniscience.`;
+table('tab1', ['Released', ...Object.keys(DATA.accuracy)], DATA.halves.map((h, i) => [HALF_LABEL[h], ...Object.values(DATA.accuracy).map(s => `typical ${s[i].value}%, best ${s[i].best}% (${s[i].n} models)`)]));
+const whole = v => Math.round(v);
+document.getElementById('plot5').innerHTML = '<table class="score"><thead><tr><th></th>' +
+  '<th><b>Hard facts from memory</b>AA-Omniscience, per 100 questions</th><th><b>Short factual questions</b>SimpleQA Verified</th>' +
+  '<th><b>Nonsense questions</b>BullshitBench, per 100 questions</th></tr></thead><tbody>' +
+  DATA.flagships.map(m => `<tr><th scope="row">${m.model}</th><td><b>${whole(m.aa_right)}</b> right<span>${whole(m.aa_wrong)} wrong</span></td>` +
+    (m.simpleqa_right == null ? '<td class="none">Not tested</td>' : `<td><b>${whole(m.simpleqa_right)}%</b> right</td>`) +
+    `<td><b>${whole(m.pushback)}</b> pushed back on<span>${whole(m.accepted)} accepted</span></td></tr>`).join('') + '</tbody></table>';
+document.getElementById('foot5').textContent = `An illustration, not a ranking of labs. Settings differ between labs and are not equal in cost. AA-Omniscience answers that are neither right nor wrong were declined or partly correct, and it tests Claude Fable 5.2 in a "Default Fallback" setup that involves a second Claude model. BullshitBench answers not shown were partial pushback or refusals. Vectara has not tested any of these five. It has tested ${Object.entries(DATA.vectara_siblings).map(([k, v]) => `${k} (${v.toFixed(1)}%)`).join(', ')}. Sources: Artificial Analysis (version 1.1), Epoch AI, BullshitBench v2, Vectara.`;
+draw();
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 120); });
+</script>

@@ -1,0 +1,96 @@
+== model counts (release-separated identities)
+aa_v1                                                                      382
+simpleqa_verified_epoch                                                    94
+bullshitbench_v2                                                           137
+vectara_new                                                                105
+facts_v2                                                                   25
+
+== Finding 1: accuracy, big-lab median by release half-year (n)
+aa_v1 medians                                                              [('2025H1', 20.8, 22), ('2025H2', 27.6, 23), ('2026H1', 38.6, 27), ('2026H2', 49.9, 29)]
+aa_v1 best 2025H1 / 2026H2                                                 (39.0, 72.4)
+  openai: rho(release date, accuracy), n                                   (0.78, 36)
+  anthropic: rho(release date, accuracy), n                                (0.78, 19)
+  google: rho(release date, accuracy), n                                   (0.49, 29)
+  xai: rho(release date, accuracy), n                                      (0.65, 13)
+  meta: rho(release date, accuracy), n                                     (0.72, 18)
+simpleqa_verified_epoch medians                                            [('2025H1', 17.2, 6), ('2025H2', 34.2, 9), ('2026H1', 45.7, 16), ('2026H2', 60.3, 25)]
+simpleqa_verified_epoch best 2025H1 / 2026H2                               (49.4, 94.0)
+  vendors in 2025H1                                                        ['openai']
+  openai: rho(release date, accuracy), n                                   (0.67, 27)
+  anthropic: rho(release date, accuracy), n                                (0.59, 16)
+  google: rho(release date, accuracy), n                                   (0.59, 9)
+  xai: rho(release date, accuracy), n                                      (1.0, 5)
+
+== Finding 1: range inside each half-year, big labs (min, median, max)
+aa_v1                                                                      [('2025H1', 3.8, 20.8, 39.0), ('2025H2', 0.9, 27.6, 52.0), ('2026H1', 7.4, 38.6, 65.3), ('2026H2', 27.0, 49.9, 72.4)]
+aa_v1 best model per half-year                                             [('2025H1', '2.5 gemini pro'), ('2025H2', '3 gemini pro'), ('2026H1', '5 claude fable'), ('2026H2', '5.2 claude fable')]
+simpleqa_verified_epoch                                                    [('2025H1', 6.0, 17.2, 49.4), ('2025H2', 11.7, 34.2, 66.8), ('2026H1', 10.4, 45.7, 73.5), ('2026H2', 23.8, 60.3, 94.0)]
+simpleqa_verified_epoch best model per half-year                           [('2025H1', '3 o'), ('2025H2', '3 flash gemini'), ('2026H1', '3.1 gemini pro'), ('2026H2', '5.2 claude fable')]
+
+== Finding 2: BullshitBench, big-lab medians 2025H1 vs 2026H2 (n)
+red_rate                                                                   [('2025H1', 59.5, 12), ('2026H2', 13.5, 27)]
+green_rate                                                                 [('2025H1', 20.0, 12), ('2026H2', 58.5, 27)]
+Claude pushback median 2026H1 / 2026H2                                     (82.0, 63.3, 6, 6)
+Claude pushback excl. refusals 2026H1 / 2026H2                             (82.4, 67.2, 6, 6)
+Claude configurations with refusals, max refusal                           (13, 0.36)
+
+== Finding 3: AA-Omniscience v1
+hallucination rate median, all models                                      [('2025H1', 84.1, 49), ('2025H2', 86.0, 115), ('2026H1', 82.0, 108), ('2026H2', 43.7, 86)]
+attempt rate median, all models                                            [('2026H1', 87.1, 108), ('2026H2', 61.8, 80)]
+all models: wrong answers mean                                             (54.82, 31.06, 'diff', 23.76, 'n', 108, 80)
+all models: fewer attempts / more correct / more partial                   (15.34, 8.21, 0.21)
+five big labs: wrong answers mean                                          (43.53, 27.02, 'diff', 16.52, 'n', 27, 27)
+five big labs: fewer attempts / more correct / more partial                (4.34, 11.57, 0.6)
+all other companies: wrong answers mean                                    (58.58, 33.12, 'diff', 25.46, 'n', 81, 53)
+all other companies: fewer attempts / more correct / more partial          (21.29, 4.2, -0.02)
+  aa_v11 Claude Fable 5.1 (Xhigh, Default Fallback)                        (44.33, 93.07)
+  aa_v11 Claude Fable 5.1 (Max, Default Fallback)                          (46.27, 93.67)
+  aa_v11 Claude Fable 5.1 (High, Default Fallback)                         (39.93, 92.3)
+  aa_v11 Claude Fable 5.1 (Medium, Default Fallback)                       (36.43, 92.3)
+  aa_v11 Claude Fable 5.1 (Low, Default Fallback)                          (33.93, 87.5)
+  aa_v11 Gemini 4 Hydrogen (Xhigh)                                         (46.27, 56.03)
+  aa_v11 Gemini 4 Hydrogen (High)                                          (43.67, 54.3)
+  aa_v11 Gemini 4 Hydrogen (Medium)                                        (41.9, 56.77)
+  aa_v11 Gemini 4 Hydrogen (Low)                                           (36.1, 58.6)
+
+== Finding 4: Vectara new board
+big-lab median by half-year                                                [('2025H1', 7.4, 13), ('2025H2', 12.45, 14), ('2026H1', 8.25, 12), ('2026H2', 9.9, 5)]
+rho(release date, rate), big labs, n                                       (0.138, 46)
+  partial rho controlling for lab and summary length                       -0.02
+OpenAI models on board / with release date                                 (18, 17)
+OpenAI rho(release date, rate)                                             -0.44
+OpenAI median by half-year                                                 [('2025H1', 12.1, 2), ('2025H2', 12.2, 6), ('2026H1', 7.0, 5), ('2026H2', 8.7, 3)]
+  openai: n, rho(release date, rate), median by half-year (n)              (17, -0.44, [('2025H1', 12.1, 2), ('2025H2', 12.2, 6), ('2026H1', 7.0, 5), ('2026H2', 8.7, 3)])
+  anthropic: n, rho(release date, rate), median by half-year (n)           (10, -0.09, [('2025H1', 11.2, 2), ('2025H2', 11.4, 4), ('2026H1', 12.0, 3), ('2026H2', 9.9, 1)])
+  google: n, rho(release date, rate), median by half-year (n)              (13, 0.39, [('2025H1', 6.7, 6), ('2025H2', 13.6, 2), ('2026H1', 7.8, 4), ('2026H2', 12.1, 1)])
+  xai: n, rho(release date, rate), median by half-year (n)                 (3, None, [('2025H1', 5.8, 1), ('2025H2', 19.2, 2)])
+  meta: n, rho(release date, rate), median by half-year (n)                (3, None, [('2025H1', 7.9, 2)])
+labs present per half-year                                                 [('2025H1', ['anthropic', 'google', 'meta', 'openai', 'xai']), ('2025H2', ['anthropic', 'google', 'openai', 'xai']), ('2026H1', ['anthropic', 'google', 'openai']), ('2026H2', ['anthropic', 'google', 'openai'])]
+big-lab summary length median 2025H1 / 2026H2                              (101.5, 148.5)
+rho(summary length, rate), all models, n                                   (0.4, 105)
+FACTS grounding: n, max, rho(release date, score), n released 2026         (25, 84.2, 0.521, 23)
+
+== Finding 5: rank correlations (from corr_mean.json)
+fact-recall tests, min and max rho (n>=15)                                 ((0.71, 20, 'AA v1.1: accuracy', 'FACTS: parametric'), (0.963, 24, 'SimpleQA-V Kaggle: score', 'Phare: factuality'))
+Vectara new: halluc rate x AA v1: halluc rate                              (-0.125, -0.33, 0.08, 'n', 83)
+Vectara new: halluc rate x FACTS: grounding                                (0.879, 0.49, 1.0, 'n', 10)
+Vectara new: halluc rate x Vectara old: halluc rate                        (0.356, 0.07, 0.58, 'n', 48)
+
+== Each model against its predecessor in the same product line (big labs)
+aa_v1 accuracy: lines, newest beats oldest, steps improved / steps         (18, 16, 41, 57)
+  lines where the newest does not beat the oldest                          ['gpt-instant', 'muse-spark']
+simpleqa_verified_epoch accuracy: lines, newest beats oldest, steps improved / steps (13, 13, 29, 36)
+  lines where the newest does not beat the oldest                          []
+bullshitbench_v2 green_rate: lines, newest beats oldest, steps improved / steps (15, 14, 32, 48)
+  lines where the newest does not beat the oldest                          ['gpt-codex']
+bullshitbench_v2 red_rate: lines, newest beats oldest, steps improved / steps (15, 13, 34, 48)
+  lines where the newest does not beat the oldest                          ['claude-fable', 'gpt-codex']
+vectara_new hallucination_rate: lines, newest beats oldest, steps improved / steps (10, 6, 14, 21)
+  lines where the newest does not beat the oldest                          ['claude-sonnet', 'gemini-flash', 'gemini-flash-lite', 'gemini-pro']
+
+== Limitations
+identities with conflicting release dates / crossing a half-year           (43, 5)
+Anthropic median percentile on vectara_new (100 = best)                    29.0
+Anthropic median percentile on bullshitbench_v2 (100 = best)               83.0
+aa_v1 accuracy big labs excluding Anthropic, 2025H1 / 2026H2               (18.5, 48.3)
+bullshitbench_v2 green_rate big labs excluding Anthropic, 2025H1 / 2026H2  (19.0, 56.5)

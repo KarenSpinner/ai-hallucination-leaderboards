@@ -1,0 +1,209 @@
+
+== AA-Omniscience v1.1 net index (higher better)   models with a release date: 76 of 76
+  [all] rho(release date, raw value) = +0.59, n=76
+      2025H2: med -24.12 best -1.80 n=2
+      2026H1: med -30.97 best 3.43 n=13
+      2026H2: med 1.51 best 64.40 n=61
+  [big 5 labs] rho(release date, raw value) = +0.62, n=30
+      2025H2: med -24.12 best -1.80 n=2
+      2026H1: med -36.33 best -24.13 n=2
+      2026H2: med 24.83 best 64.40 n=26
+
+== AA-Omniscience v1.1 accuracy % (higher better)   models with a release date: 76 of 76
+  [all] rho(release date, raw value) = +0.37, n=76
+      2025H2: med 19.60 best 21.67 n=2
+      2026H1: med 21.23 best 44.87 n=13
+      2026H2: med 34.80 best 77.53 n=61
+  [big 5 labs] rho(release date, raw value) = +0.38, n=30
+      2025H2: med 19.60 best 21.67 n=2
+      2026H1: med 25.82 best 31.70 n=2
+      2026H2: med 46.17 best 77.53 n=26
+
+== AA-Omniscience v1.1 hallucination rate % (lower better)   models with a release date: 76 of 76
+  [all] rho(release date, raw value) = -0.38, n=76
+      2025H2: med 55.19 best 23.44 n=2
+      2026H1: med 83.50 best 13.86 n=13
+      2026H2: med 39.74 best 4.26 n=61
+  [big 5 labs] rho(release date, raw value) = -0.61, n=30
+      2025H2: med 55.19 best 23.44 n=2
+      2026H1: med 83.63 best 81.75 n=2
+      2026H2: med 44.84 best 4.26 n=26
+
+== AA-Omniscience v1.1 attempt rate %   models with a release date: 76 of 76
+  [all] rho(release date, raw value) = -0.22, n=76
+      2025H2: med 65.60 best 92.20 n=2
+      2026H1: med 90.73 best 99.65 n=13
+      2026H2: med 61.73 best 98.70 n=61
+  [big 5 labs] rho(release date, raw value) = -0.41, n=30
+      2025H2: med 65.60 best 92.20 n=2
+      2026H1: med 91.08 best 91.43 n=2
+      2026H2: med 76.25 best 97.83 n=26
+
+== AA-Omniscience v1 net index (higher better)   models with a release date: 382 of 382
+  [all] rho(release date, raw value) = +0.56, n=382
+      2023-: med -49.38 best -33.83 n=2
+      2024H1: med -57.70 best -48.63 n=4
+      2024H2: med -41.91 best -10.52 n=18
+      2025H1: med -48.54 best -4.42 n=49
+      2025H2: med -50.73 best 8.54 n=115
+      2026H1: med -35.47 best 43.30 n=108
+      2026H2: med -1.04 best 54.62 n=86
+  [big 5 labs] rho(release date, raw value) = +0.74, n=115
+      2023-: med -33.83 best -33.83 n=1
+      2024H1: med -54.32 best -48.63 n=3
+      2024H2: med -26.70 best -10.52 n=10
+      2025H1: med -42.55 best -4.42 n=22
+      2025H2: med -16.05 best 8.54 n=23
+      2026H1: med 2.19 best 43.30 n=27
+      2026H2: med 25.32 best 54.62 n=29
+
+== AA-Omniscience v1 accuracy % (higher better)   models with a release date: 382 of 382
+  [all] rho(release date, raw value) = +0.35, n=382
+      2023-: med 15.01 best 21.00 n=2
+      2024H1: med 14.00 best 17.72 n=4
+      2024H2: med 17.62 best 34.53 n=18
+      2025H1: med 17.43 best 39.05 n=49
+      2025H2: med 17.70 best 52.03 n=115
+      2026H1: med 21.33 best 65.35 n=108
+      2026H2: med 32.22 best 72.43 n=86
+  [big 5 labs] rho(release date, raw value) = +0.70, n=115
+      2023-: med 21.00 best 21.00 n=1
+      2024H1: med 17.63 best 17.72 n=3
+      2024H2: med 19.32 best 34.53 n=10
+      2025H1: med 20.79 best 39.05 n=22
+      2025H2: med 27.58 best 52.03 n=23
+      2026H1: med 38.64 best 65.35 n=27
+      2026H2: med 49.90 best 72.43 n=29
+
+== AA-Omniscience v1 hallucination rate % (lower better)   models with a release date: 382 of 382
+  [all] rho(release date, raw value) = -0.41, n=382
+      2023-: med 75.33 best 69.41 n=2
+      2024H1: med 84.00 best 77.99 n=4
+      2024H2: med 68.65 best 37.92 n=18
+      2025H1: med 84.15 best 25.82 n=49
+      2025H2: med 85.96 best 26.51 n=115
+      2026H1: med 81.96 best 8.95 n=108
+      2026H2: med 43.73 best 11.66 n=86
+  [big 5 labs] rho(release date, raw value) = -0.37, n=115
+      2023-: med 69.41 best 69.41 n=1
+      2024H1: med 87.54 best 80.45 n=3
+      2024H2: med 62.38 best 37.92 n=10
+      2025H1: med 86.78 best 25.82 n=22
+      2025H2: med 75.42 best 26.51 n=23
+      2026H1: med 66.09 best 33.64 n=27
+      2026H2: med 54.15 best 15.07 n=29
+
+== AA-Omniscience v1 attempt rate %   models with a release date: 376 of 376
+  [all] rho(release date, raw value) = -0.31, n=376
+      2023-: med 81.90 best 86.37 n=2
+      2024H1: med 88.93 best 92.32 n=4
+      2024H2: med 77.18 best 94.57 n=18
+      2025H1: med 89.20 best 99.63 n=49
+      2025H2: med 90.36 best 98.51 n=115
+      2026H1: med 87.08 best 99.13 n=108
+      2026H2: med 61.77 best 99.59 n=80
+  [big 5 labs] rho(release date, raw value) = -0.13, n=113
+      2023-: med 77.43 best 77.43 n=1
+      2024H1: med 91.87 best 92.32 n=3
+      2024H2: med 70.03 best 94.10 n=10
+      2025H1: med 92.35 best 99.63 n=22
+      2025H2: med 84.03 best 98.51 n=23
+      2026H1: med 84.56 best 97.87 n=27
+      2026H2: med 81.21 best 97.94 n=27
+
+== BullshitBench pushback rate 0-1 (higher better)   models with a release date: 137 of 137
+  [all] rho(release date, raw value) = +0.60, n=137
+      2024H1: med 0.28 best 0.46 n=2
+      2024H2: med 0.13 best 0.50 n=4
+      2025H1: med 0.15 best 0.46 n=17
+      2025H2: med 0.20 best 0.84 n=29
+      2026H1: med 0.34 best 0.94 n=46
+      2026H2: med 0.58 best 0.74 n=39
+  [big 5 labs] rho(release date, raw value) = +0.61, n=84
+      2024H1: med 0.28 best 0.46 n=2
+      2024H2: med 0.13 best 0.50 n=4
+      2025H1: med 0.20 best 0.46 n=12
+      2025H2: med 0.33 best 0.84 n=17
+      2026H1: med 0.42 best 0.94 n=22
+      2026H2: med 0.58 best 0.73 n=27
+
+== BullshitBench accepted-nonsense rate 0-1 (lower better)   models with a release date: 137 of 137
+  [all] rho(release date, raw value) = -0.62, n=137
+      2024H1: med 0.55 best 0.36 n=2
+      2024H2: med 0.61 best 0.35 n=4
+      2025H1: med 0.66 best 0.30 n=17
+      2025H2: med 0.52 best 0.07 n=29
+      2026H1: med 0.39 best 0.01 n=46
+      2026H2: med 0.14 best 0.03 n=39
+  [big 5 labs] rho(release date, raw value) = -0.66, n=84
+      2024H1: med 0.55 best 0.36 n=2
+      2024H2: med 0.61 best 0.35 n=4
+      2025H1: med 0.59 best 0.30 n=12
+      2025H2: med 0.36 best 0.07 n=17
+      2026H1: med 0.25 best 0.01 n=22
+      2026H2: med 0.14 best 0.03 n=27
+
+== SimpleQA Verified (Epoch, forced guess) accuracy 0-1 (higher better)   models with a release date: 94 of 94
+  [all] rho(release date, raw value) = +0.52, n=94
+      2024H1: med 0.13 best 0.13 n=1
+      2024H2: med 0.26 best 0.41 n=3
+      2025H1: med 0.18 best 0.49 n=8
+      2025H2: med 0.34 best 0.67 n=11
+      2026H1: med 0.35 best 0.73 n=33
+      2026H2: med 0.54 best 0.94 n=38
+  [big 5 labs] rho(release date, raw value) = +0.68, n=60
+      2024H1: med 0.13 best 0.13 n=1
+      2024H2: med 0.26 best 0.41 n=3
+      2025H1: med 0.17 best 0.49 n=6
+      2025H2: med 0.34 best 0.67 n=9
+      2026H1: med 0.46 best 0.73 n=16
+      2026H2: med 0.60 best 0.94 n=25
+
+== FACTS grounding % (higher better)   models with a release date: 25 of 25
+  [all] rho(release date, raw value) = +0.52, n=25
+      2025H2: med 34.37 best 48.60 n=2
+      2026H1: med 75.83 best 77.78 n=3
+      2026H2: med 67.38 best 84.17 n=20
+  [big 5 labs] rho(release date, raw value) = +0.54, n=23
+      2025H2: med 34.37 best 48.60 n=2
+      2026H1: med 75.83 best 77.78 n=3
+      2026H2: med 67.38 best 84.17 n=18
+
+== FACTS parametric % (higher better)   models with a release date: 27 of 27
+  [all] rho(release date, raw value) = +0.26, n=27
+      2025H2: med 72.40 best 72.40 n=1
+      2026H1: med 13.69 best 79.36 n=4
+      2026H2: med 57.29 best 83.82 n=22
+  [big 5 labs] rho(release date, raw value) = +0.26, n=25
+      2025H2: med 72.40 best 72.40 n=1
+      2026H1: med 13.69 best 79.36 n=4
+      2026H2: med 58.16 best 83.82 n=20
+
+== Vectara new board hallucination rate % (lower better)   models with a release date: 91 of 105
+  [all] rho(release date, raw value) = +0.18, n=91
+      2024H1: med 23.50 best 23.50 n=1
+      2024H2: med 5.30 best 3.70 n=6
+      2025H1: med 7.55 best 3.30 n=20
+      2025H2: med 11.80 best 5.10 n=33
+      2026H1: med 10.40 best 3.10 n=25
+      2026H2: med 9.30 best 4.20 n=6
+  [big 5 labs] rho(release date, raw value) = +0.14, n=46
+      2024H2: med 6.85 best 4.10 n=2
+      2025H1: med 7.40 best 3.30 n=13
+      2025H2: med 12.45 best 9.60 n=14
+      2026H1: med 8.25 best 3.10 n=12
+      2026H2: med 9.90 best 6.50 n=5
+
+== Vectara old board hallucination rate % (lower better)   models with a release date: 74 of 167
+  [all] rho(release date, raw value) = +0.03, n=74
+      2023-: med 5.65 best 1.80 n=2
+      2024H1: med 4.60 best 3.40 n=5
+      2024H2: med 4.05 best 1.50 n=16
+      2025H1: med 4.05 best 0.80 n=30
+      2025H2: med 4.20 best 1.10 n=21
+  [big 5 labs] rho(release date, raw value) = -0.05, n=43
+      2023-: med 1.80 best 1.80 n=1
+      2024H1: med 6.00 best 4.10 n=4
+      2024H2: med 4.45 best 1.50 n=10
+      2025H1: med 3.30 best 0.80 n=19
+      2025H2: med 4.20 best 2.40 n=9
